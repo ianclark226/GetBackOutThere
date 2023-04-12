@@ -11,6 +11,7 @@ const app = express();
 // mongodb connect
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGO_URL, () => console.log('MongoDB has been started sucessfully'));
+app.use('/images', express.static('public/images'));
 
 //routes & middleware
 app.use(express.json());
