@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
 import classes from './Hero.module.css';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
 
   const [type, setType] = useState('booze');
   const [priceRange, setPriceRange] = useState('0');
+  const navigate = useNavigate()
 
   const handleSearch = () => {
-
+      navigate(`/events?type=${type}&priceRange=${priceRange}`)
   }
 
   return (
@@ -35,7 +37,7 @@ const Hero = () => {
             <option value="5">40-50</option>
             <option value="6">+50</option>
           </select>
-          <AiOutlineSearch className={classes.searchIcon} />
+          <AiOutlineSearch onClick={handleSearch} className={classes.searchIcon} />
         </div>
       </div>
     </div>

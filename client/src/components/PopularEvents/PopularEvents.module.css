@@ -102,3 +102,9 @@
 .property:hover > .quantity {
     transform: rotate(0);
 }
+
+@media only screen and (max-width: 768px) {
+    .property {
+      width: 65%
+    }
+  }
