@@ -1,56 +1,47 @@
-import "./App.css";
-import { Route, Routes } from "react-router-dom";
-import Navbar from './components/Navbar/Navbar.jsx';
-import Hero from './components/Hero/Hero';
-import PopularEvents from './components/PopularEvents/PopularEvents';
-import FeaturedEvents from './components/FeaturedEvents/FeaturedEvents';
-import Newsletter from './components/Newsletter/Newsletter';
-import Footer from './components/Footer/Footer';
-import Signin from './components/Signin/Signin';
-import Signup from './components/Signup/Signup';
-import Events from './components/Events/Events';
-import EventDetails from './components/EventDetails/EventDetails';
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
+import Navbar from './components/navbar/Navbar'
+import Hero from './components/hero/Hero'
+import PopularEvents from './components/popularevents/PopularEvents'
+import FeaturedEvents from './components/featuredevents/FeaturedEvents'
+import Footer from './components/footer/Footer'
+import Events from './components/events/Events'
+import Signup from './components/signup/Signup'
+import Signin from './components/signin/Signin'
+import EventDetails from './components/eventdetails/EventDetails'
 
 function App() {
   return (
     <div>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Navbar />
-              <Hero />
-              <PopularEvents />
-              <FeaturedEvents />
-              <Newsletter />
-              <Footer />
-            </>
-          }
-        />
+        <Route path="/" element={
+          <>
+          <Navbar />
+          <Hero />
+          <PopularEvents />
+          <FeaturedEvents />
+          <Footer />
+          </>
+        } />
+        
+        <Route path="/events" element={
+          <>
+          <Navbar />
+          <Events />
+          <Footer />
+          </>
+        } />
+        <Route path="/eventDetail/:id" element={
+          <>
+          <Navbar />
+          <EventDetails />
+          <Footer />
+          </>
+        } />
+
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
 
-        <Route
-          path="/events"
-          element={
-            <>
-              <Navbar />
-              <Events />
-              <Footer />
-            </>
-          }
-        />
-        <Route
-          path="/eventDetail/:id"
-          element={
-            <>
-              <Navbar />
-              <EventDetails />
-              <Footer />
-            </>
-          }
-        />
       </Routes>
     </div>
   );

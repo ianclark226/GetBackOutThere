@@ -1,59 +1,72 @@
-import React, {useState, useEffect} from 'react';
-import classes from './PopularEvents.module.css';
-import { Link } from 'react-router-dom';
-import img1 from '../../assets/booze.jpeg';
-import img2 from '../../assets/crafts.jpeg';
-import img3 from '../../assets/dating.jpeg';
-import img4 from '../../assets/gaming.jpeg';
-import img5 from '../../assets/sports.jpeg';
-import {request} from '../../util/fetchAPI.js';
+import React, { useEffect, useState } from 'react'
+import classes from './PopularEvents.module.css'
+import { Link } from 'react-router-dom'
+import { request } from '../../util/fetchAPI'
+import img1 from '../../assets/bar.jpeg'
+import img2 from '../../assets/crafts.jpeg'
+import img3 from '../../assets/dating.jpeg'
+import img4 from '../../assets/gaming.webp'
+import img5 from '../../assets/sports.jpeg'
 
 const PopularEvents = () => {
-  const [numEvents, setNumEvents] = useState({});
+
+  const [boozeEvents, setBoozeEvents] = useState(0)
+  const [craftEvents, setCraftEvents] = useState(0)
+  const [datingEvents, setDatingEvents] = useState(0)
+  const [gamingEvents, setGamingEvents] = useState(0)
+  const [sportEvents, setSportEvents] = useState(0)
 
   useEffect(() => {
-    const fetchNumberEvents = async () => {
+    const fetchNumberEvents = async() => {
       try {
-        const data = await request('/event/find/types', 'GET');
-        fetchNumberEvents(data)
+        const data = await request('/event/find/types', "GET")
+        setBoozeEvents(data.booze)
+         setCraftEvents(data.crafts)
+         setDatingEvents(data.dating)
+         setGamingEvents(data.gaming)
+         setSportEvents(data.sporting)
+
+        console.log(data)
+
+
       } catch(error) {
-        console.error(error.message)
+        console.log(error.message)
       }
     }
-    fetchNumberEvents()
+    fetchNumberEvents();
   }, [])
   return (
-    <div className={classes.contianer}>
+    <div className={classes.container}>
       <div className={classes.wrapper}>
         <div className={classes.titles}>
           <h5>Different types of Events</h5>
           <h2>Best type of Events for you</h2>
         </div>
-        <div className={classes.properties}>
-          <Link className={classes.property} to={`/events?type=boozepriceRange=2`}>
-            <img src={img1} alt="booze"/>
-            <div className={classes.quantity}>{numEvents?.booze}</div>
+        <div className={classes.events}>
+          <Link className={classes.event} to={`/events?type=booze=18priceRange=2`}>
+            <img src={img1} alt=""/>
+            <div className={classes.quantity}>{boozeEvents} Events</div>
             <h5>Booze Events</h5>
           </Link>
-          <Link className={classes.property} to={`/events?type=craftspriceRange=2`}>
-            <img src={img2} alt="crafts"/>
-            <div className={classes.quantity}>{numEvents?.crafts}</div>
+          <Link className={classes.event} to={`/events?type=crafts=18priceRange=2`}>
+            <img src={img2} alt=""/>
+            <div className={classes.quantity}>{craftEvents} Events</div>
             <h5>Craft Events</h5>
           </Link>
-          <Link className={classes.property} to={`/events?type=datingpriceRange=2`}>
-            <img src={img3} alt="dating"/>
-            <div className={classes.quantity}>{numEvents?.dating}</div>
+          <Link className={classes.event} to={`/events?type=dating=18priceRange=2`}>
+            <img src={img3} alt=""/>
+            <div className={classes.quantity}>{datingEvents} Events</div>
             <h5>Dating Events</h5>
           </Link>
-          <Link className={classes.property} to={`/events?type=gamingpriceRange=2`}>
-            <img src={img4} alt="gaming"/>
-            <div className={classes.quantity}>{numEvents?.gaming}</div>
+          <Link className={classes.event} to={`/events?type=gaming=18priceRange=2`}>
+            <img src={img4} alt=""/>
+            <div className={classes.quantity}>{gamingEvents} Events</div>
             <h5>Gaming Events</h5>
           </Link>
-          <Link className={classes.property} to={`/events?type=sportspriceRange=2`}>
-            <img src={img5} alt="sports"/>
-            <div className={classes.quantity}>{numEvents?.sports}</div>
-            <h5>Sport Events</h5>
+          <Link className={classes.event} to={`/events?type=sports=18priceRange=2`}>
+            <img src={img5} alt=""/>
+            <div className={classes.quantity}>{sportEvents} Events</div>
+            <h5>Sporting Events</h5>
           </Link>
         </div>
       </div>

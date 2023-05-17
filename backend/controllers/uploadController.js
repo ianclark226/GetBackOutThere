@@ -9,11 +9,11 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         cb(null, req.body.filename)
-    }
+    },
 })
 
 const upload = multer({
-    storage: storage
+    storage: storage,
 })
 
 // upload.single("image") is going to check in the req.body for the req.body.image

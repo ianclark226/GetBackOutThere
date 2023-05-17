@@ -1,9 +1,9 @@
 .container {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 68px);
     width: 100%;
-    background-image: url();
+    background-image: url('../../assets/social.jpeg');
     background-size: cover;
-    background-color: rgba(0,0,0,0.4);
+    background-size: rgba(0,0,0,0.4);
     background-blend-mode: darken;
 }
 
@@ -11,10 +11,10 @@
     max-width: 1180px;
     margin: 0 auto;
     height: 100%;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
 }
 
 .wrapper > h2 {
@@ -34,11 +34,11 @@
 .wrapper > .options {
     width: 70%;
     background-color: #fff;
+    padding: 1.25 1.5rem;
     border-radius: 20px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-radius: 20px;
 }
 
 .wrapper > .options > select {
@@ -60,22 +60,8 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(90deg, rgb(7, 3, 73) 0%, rgb(14, 14, 132) 35% rgb(32, 97, 219) 100%);
+    background: linear-gradient(90deg, rgb(7,3,73) 0%, rgb(14, 14, 132) 35%, rgb(32,97,219) 100%);
     fill: #fff;
     cursor: pointer;
-}
-
-@media only screen and (max-width: 768px) {
-    .wrapper > h2{
-        font-size: 40px;
-    }
-    
-    .wrapper > h5{
-        font-size: 30px; 
-    }
-
-    .wrapper > .options{
-        width: 90%;
-    }
 }
 

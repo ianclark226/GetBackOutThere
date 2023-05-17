@@ -1,23 +1,20 @@
-import React, {useState} from 'react';
-import classes from './Hero.module.css';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import classes from './Hero.module.css'
+import { AiOutlineSearch } from 'react-icons/ai'
 
 const Hero = () => {
 
-  const [type, setType] = useState('booze');
-  const [priceRange, setPriceRange] = useState('0');
-  const navigate = useNavigate()
+  const [type, setType] = useState("booze");
+  const [priceRange, setPriceRange] = useState("0");
 
   const handleSearch = () => {
-      navigate(`/events?type=${type}&priceRange=${priceRange}`)
-  }
 
+  }
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
-        <h2>Let me find your dream event now</h2>
-        <h5>Search the best selection of activities and events</h5>
+        <h2>Let me find your popular event</h2>
+        <h5>Search the best selection of events for you</h5>
         <div className={classes.options}>
           <select onChange={(e) => setType(e.target.value)}>
             <option disabled>Select Type</option>
@@ -28,16 +25,15 @@ const Hero = () => {
             <option value="sports">Sports</option>
           </select>
           <select onChange={(e) => setPriceRange(e.target.value)}>
-            <option disabled>Select Ticket Price Range</option>
+            <option disabled>Select Ticket Range</option>
             <option value="0">0</option>
-            <option value="1">5-10</option>
-            <option value="2">10-20</option>
-            <option value="3">20-30</option>
-            <option value="4">30-40</option>
-            <option value="5">40-50</option>
-            <option value="6">+50</option>
+            <option value="1">1 - 10</option>
+            <option value="2">10 - 20</option>
+            <option value="3">20 - 30</option>
+            <option value="4">30+</option>
           </select>
-          <AiOutlineSearch onClick={handleSearch} className={classes.searchIcon} />
+          <AiOutlineSearch className={classes.searchIcon} />
+          
         </div>
       </div>
     </div>
