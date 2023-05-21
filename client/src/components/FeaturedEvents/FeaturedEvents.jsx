@@ -20,7 +20,7 @@ const FeaturedEvents = () => {
     fetchFeatured()
   }, []) 
 
-  console.log(featuredEvents)
+  
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
@@ -31,7 +31,18 @@ const FeaturedEvents = () => {
         <div className={classes.featuredEvents}>
           {featuredEvents.map((event) => (
             <div key={event._id} className={classes.featuredEvent}>
-              <Link to="/"></Link>
+              <Link to={`/eventDetail/${event._id}`} className={classes.imgContainer}>
+                <img src={img} alt="" />
+              </Link>
+              <div className={classes.details}>
+                <div className={classes.priceAndOwner}>
+                  <span className={classes.price}>$ {event?.price}</span>
+                  <img src={person} className={classes.owner} alt="person"/>
+                </div>
+                <div className={classes.desc}>
+                  {event?.desc}
+                </div>
+              </div>
             </div>
           ))}
         </div>

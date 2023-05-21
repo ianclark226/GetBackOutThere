@@ -20,10 +20,11 @@ app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use("/auth", authController);
 app.use("/event", eventController);
-app.use("upload", uploadController);
+app.use("/upload", uploadController);
 app.use(bodyParser.json());
 
 
 
 // starting server
-app.listen(process.env.PORT, () => console.log('Server running on Port'));
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log("Server has been started"));
