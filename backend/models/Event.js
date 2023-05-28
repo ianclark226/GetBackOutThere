@@ -13,7 +13,7 @@ const EventSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ["Booze", "Crafts", "Dating", "Gaming", "Sports"],
+        enum: ["booze", "crafts", "dating", "gaming", "sports"],
         required: true,
     },
     desc: {
@@ -29,10 +29,10 @@ const EventSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    // crowd: {
-    //     enum: ['small', 'medium', 'large'],
-    //     required: false,
-    // },
+    crowd: {
+        enum: ['small', 'medium', 'large'],
+        required: false,
+    },
     location: {
         type: String,
         required: true,

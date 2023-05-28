@@ -26,7 +26,7 @@ const PopularEvents = () => {
          setGamingEvents(data.gaming)
          setSportEvents(data.sporting)
 
-        console.log(data)
+        
 
 
       } catch(error) {

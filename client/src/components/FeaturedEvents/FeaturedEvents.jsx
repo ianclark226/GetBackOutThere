@@ -32,7 +32,7 @@ const FeaturedEvents = () => {
           {featuredEvents.map((event) => (
             <div key={event._id} className={classes.featuredEvent}>
               <Link to={`/eventDetail/${event._id}`} className={classes.imgContainer}>
-                <img src={img} alt="" />
+                <img src={event.image ? `http://localhost:5000/images/${event.img}` : img} alt="" />
               </Link>
               <div className={classes.details}>
                 <div className={classes.priceAndOwner}>

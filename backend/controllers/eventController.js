@@ -44,11 +44,11 @@ eventController.get('/find', async(req, res) => {
 eventController.get('/find/types', async(req, res) => {
     const type = req.query
     try {
-      const boozeType = await Event.countDocuments({type: 'Booze'})
-      const craftsType = await Event.countDocuments({type: 'Crafts'})
-      const datingType = await Event.countDocuments({type: 'Dating'})
-      const gamingType = await Event.countDocuments({type: 'Gaming'})
-      const sportsType = await Event.countDocuments({type: 'Sports'})
+      const boozeType = await Event.countDocuments({type: 'booze'})
+      const craftsType = await Event.countDocuments({type: 'crafts'})
+      const datingType = await Event.countDocuments({type: 'dating'})
+      const gamingType = await Event.countDocuments({type: 'gaming'})
+      const sportsType = await Event.countDocuments({type: 'sports'})
 
       return res.status(200).json({
         booze: boozeType,
