@@ -1,0 +1,46 @@
+.container {
+    height: 100%;
+    width: 100%;
+    margin-top: 2.5rem;
+}
+
+.wrapper {
+    max-width: 1180px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.titles {
+    margin-top: 5rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.titles>h5 {
+    color: #777;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.titles>h2 {
+    color: #333;
+    font-size: 28px;
+}
+
+.wrapper>.options {
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* copy & paste */
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}

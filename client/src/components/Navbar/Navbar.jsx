@@ -107,7 +107,7 @@ const Navbar = () => {
                 <input type="text" placeholder='Desc...' name="desc" onChange={handleState} />
 
                 <input type="number" placeholder='Price...' name="price" onChange={handleState} />
-                <input type="text" placeholder='Crowd Size...' name="crowdsize" onChange={handleState} />
+                <input type="text" placeholder='Crowd Size...' name="crowd" onChange={handleState} />
                 <input type="text" placeholder='Location...' name="location" onChange={handleState} />
                
 
