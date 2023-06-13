@@ -11,7 +11,7 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    navigate(`/event?type=${type}&crowd=${crowd}&priceRange=${priceRange}`)
+    navigate(`/events?type=${type}&crowd=${crowd}&priceRange=${priceRange}`)
   }
   return (
     <div className={classes.container}>
@@ -29,8 +29,8 @@ const Hero = () => {
           </select>
           <select onChange={(e) => setPriceRange(e.target.value)}>
             <option disabled>Select Ticket Range</option>
-            <option value="0">0</option>
-            <option value="1">1 - 10</option>
+            <option value="0">0 - 5</option>
+            <option value="1">5 - 10</option>
             <option value="2">10 - 20</option>
             <option value="3">20 - 30</option>
             <option value="4">30+</option>

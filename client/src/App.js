@@ -24,7 +24,7 @@ function App() {
           </>
         } />
         
-        <Route path="/event" element={
+        <Route path="/events" element={
           <>
           <Navbar />
           <Events />

@@ -6,7 +6,7 @@ const { events } = require('../models/User');
 // get all
 eventController.get('/getAll', async(req,res) => {
     try {
-        const events = await Event.find({})
+        const events = await Event.find({}).populate('currentOwner', '-password')
 
         return res.status(200).json(events)
     } catch (error) {
@@ -28,12 +28,13 @@ eventController.get('/find/featured', async(req, res) => {
 // get all from a specific type
 eventController.get('/find', async(req, res) => {
     const type = req.query
+    let events = []
     try {
         if(type) {
-            const events = await Event.find(type).populate('currentOwner', '-password')
+         events = await Event.find(type).populate('currentOwner', '-password')
             return res.status(200).json(events)
         } else {
-            return res.status(500).json({ msg: "Not a type"})
+            events = await Event.find({})
         }
     } catch (error) {
         return res.status(500).json(error.message)
@@ -65,12 +66,12 @@ eventController.get('/find/types', async(req, res) => {
 // get individual event
 eventController.get('/find/:id', async(req, res) => {
     try {
-        const event = await Event.findById(req.params.id).populate('currentOwner', '-passwrod')
+        const event = await Event.findById(req.params.id).populate('currentOwner', '-password')
 
         if(!event) {
             throw new Error("No such Event with this id")
         } else {
-            return res.status(500).json(event)
+            return res.status(200).json(event)
         }
     } catch(error) {
         return res.status(500).json(error.message)

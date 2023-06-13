@@ -30,8 +30,9 @@ const EventSchema = new mongoose.Schema({
         required: true,
     },
     crowd: {
+        type: String,
         enum: ['small', 'medium', 'large'],
-        required: false,
+        required: true,
     },
     location: {
         type: String,

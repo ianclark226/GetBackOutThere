@@ -6,6 +6,7 @@ export const request = async (url, method, headers = {}, body = {}, isNotStringi
     switch (method) {
         case 'GET':
             res = await fetch(BASE_URL + url, { headers })
+            console.log(res)
             if(res.status !== 200 && res.status !== 201) throw new Error("ERROR")
             data = await res.json()
             return data
