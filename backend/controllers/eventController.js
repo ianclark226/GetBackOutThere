@@ -134,4 +134,34 @@ eventController.delete('/:id', verifyToken, async (req, res) => {
     }
 })
 
+//fetch bookmarked events
+eventController.get('/find/bookmarked-events', verifyToken, async(req, res) => {
+    try {
+        const events = await Event.find({ bookmarkedUsers: { $in: [req.user.id] } })
+
+        return res.status(200).json(events)
+    } catch(error) {
+        console.error(error)
+    }
+})
+
+// bookmark/unbookmark events
+eventController.put('/bookmark/:id', verifyToken, async(req, res) => {
+    try {
+        let event = await Event.findById(req.params.id)
+        if(event.currentOwner.toString() === req.user.id) {
+            throw new Error("You are not allowed to bookmark your stuff")
+        }
+
+        if(event.bookmarkedUsers.includes(req.user.id)) {
+            event.bookmarkedUsers = event.bookmarkedUsers.filter(id => id !== req.user.id)
+            await event.save()
+        }
+
+        return res.status(200).json(event)
+    } catch(error) {
+        return res.status(500).json(error)
+    }
+})
+
 module.exports = eventController;
