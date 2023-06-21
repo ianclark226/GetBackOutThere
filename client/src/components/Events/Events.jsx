@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { request } from '../../util/fetchAPI'
-import { crowdToIdx } from '../../util/idxToCrowd'
 import classes from './Events.module.css'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { arrPriceRanges } from '../../util/idxToPrice'
 import { Link } from 'react-router-dom'
 import person from '../../assets/person.webp'
+import { crowdToIdx } from '../../util/idxToCrowd'
 
 
 const Events = () => {
@@ -48,7 +48,7 @@ const Events = () => {
         }
       })
     }
-  }, [allEvents, arrQuery])
+  }, [allEvents, arrQuery, state])
 
 
   const handleState = (e) => {
@@ -71,10 +71,10 @@ const Events = () => {
     const filteredEvents = allEvents.filter((eve) => {
 
       const priceRange = arrPriceRanges[options.priceRange]
-      const minPrice = Number(priceRange.split('-')[0])
-      const maxPrice = Number(priceRange.split('-')[1])
+      const minPrice = String(priceRange.split('-')[0])
+      const maxPrice = String(priceRange.split('-')[1])
       // const crowd = crowdToIdx(eve.crowd)
-
+      console.log(minPrice)
       
       
 
@@ -83,8 +83,11 @@ const Events = () => {
         // && crowd === Number(options.crowd)
         && eve.price >= minPrice && eve.price <= maxPrice
       ) {
-        return eve
+        
       }
+        
+      
+      return eve
     })
 
     const queryStr = `type=${options.type}&crowd=${options.crowd}&priceRange=${options.priceRange}`

@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
 import classes from './Signup.module.css'
 import {Link, useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import { AiOutlineFileImage } from 'react-icons/ai'
 import { request } from '../../util/fetchAPI'
-// import { useDispatch } from 'react-redux'
+import { register } from '../../redux/authSlice'
+
 
  
 const Signout = () => {
 
   const [state, setState] = useState({})
   const [photo, setPhoto] = useState("")
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  const { token } = useSelector((state) => state.auth)
+  const [error, setError] = useState(false)
+  const [emptyFields, setEmptyFields] = useState(false)
   const navigate = useNavigate()
 
   const handleState = (e) => {
@@ -31,6 +36,10 @@ const Signout = () => {
 
         await request("/upload/image", 'POST', {}, formData, true)
       } else {
+        setEmptyFields(true)
+        setTimeout(() => {
+          setEmptyFields(false)
+        }, 2500)
         return
       }
 
@@ -40,10 +49,14 @@ const Signout = () => {
 
       const data = await request('/auth/register', 'POST', headers, {...state, profileImg: filename})
       console.log(data)
-      // dispatch(register(data))
+      dispatch(register(data))
       navigate('/')
 
     } catch(error) {
+      setError(true)
+      setTimeout(() => {
+        setError(false)
+      }, 2000)
       console.error(error)
     }
   }
@@ -61,6 +74,16 @@ const Signout = () => {
           <button type="submit">Register</button>
           <p>Already have an account? <Link to="/signin">Sign In</Link></p>
         </form>
+        {error && (
+          <div className={classes.error}>
+            There was an error signing up! Try again.
+          </div>
+        )}
+        {emptyFields && (
+          <div className={classes.error}>
+            Fill all fields!
+          </div>
+        )}
       </div>
     </div>
   )

@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { request } from '../../util/fetchAPI'
 import classes from './EventDetails.module.css'
 import emailjs from '@emailjs/browser'
+import { Link } from 'react-router-dom'
+import person from '../../assets/person.webp'
 
 const EventDetails = () => {
 
@@ -15,6 +17,7 @@ const EventDetails = () => {
   const[desc, setDesc] = useState('')
   const{id} = useParams();
   const formRef = useRef();
+  const navigate = useNavigate()
 
   const serviceId = process.env.REACT_APP_SERVICE_ID
   const templateId = process.env.REACT_APP_TEMPLATE_ID
@@ -52,28 +55,48 @@ const EventDetails = () => {
   .catch((err) => console.log(err))
   }
 
+  const handleDelete = async() => {
+    try {
+      await request(`/event/${id}`, 'DELETE', {'Authorization': `Bearer ${token}`})
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   return (
     <div className={classes.container}>
+      <h3 style={{ textAlign: 'center', marginBottom: '2.5rem', fontSize: '32px', marginTop: '-2.5rem' }}>Event Details</h3>
       <div className={classes.wrapper}>
         <div className={classes.left}>
-          <img src={`http://localhost:5000/images/${eventDetail?.img}`} alt=''/>
-          
+          <img src={`http://localhost:5000/images/${eventDetail?.img}`} alt=""/>
         </div>
         <div className={classes.right}>
           <h3 className={classes.title}>
             Title: {`${eventDetail?.title}`}
+            {user?._id === eventDetail?.currentOwner?._id && (
+              <div className={classes.controls}>
+                <Link to={`/editEvent/${id}`}>Edit</Link>
+                <button onClick={handleDelete}>Delete</button>
+              </div>)
+            }
           </h3>
           <div className={classes.details}>
-            <div className={classes.typeAndCrowd}>
+            <div className={classes.typeAndcrowd}>
             <div>Type: <span>{`${eventDetail?.type}`}</span></div>
             <div>Crowd: <span>{`${eventDetail?.crowd}`}</span></div>
           </div>
           <div className={classes.priceAndOwner}>
             <span className={classes.price}><span>Price: $</span>{`${eventDetail?.price}`}</span>
             <span style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
-              Owner <img src={`http://localhost:5000/images/${eventDetail?.currentOwner?.profileImg}`} alt="" className={classes.owner}/>
-            </span>
+              Owner: {eventDetail?.currentOwner?.profileImg
+              ? (
+              <img src={`http://localhost:5000/images/${eventDetail?.currentOwner?.profileImg}`} alt="" className={classes.owner}/>
+              ) : (
+                <img src={person} className={classes.owner} alt=""/>
+              )
+              }</span>
           </div>
           
         </div>
@@ -81,6 +104,7 @@ const EventDetails = () => {
       <p className={classes.desc}>
       Desc: <span>{`${eventDetail?.desc}`}</span>
       </p>
+      
       <button onClick={() => setShowForm(true)} className={classes.contactOwner}>
         Contact Owner
       </button>

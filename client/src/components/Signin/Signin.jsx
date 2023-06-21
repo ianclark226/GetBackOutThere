@@ -9,6 +9,8 @@ const Signin = () => {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState(false)
+  const [emptyFields, setEmptyFields] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -25,6 +27,10 @@ const Signin = () => {
       navigate("/")
     
     } catch(err) {
+      setError(true)
+      setTimeout(() => {
+        setError(false)
+      }, 2000)
       console.error(err)
     }
   }
@@ -38,6 +44,17 @@ const Signin = () => {
           <button type="submit">Sign in</button>
           <p>Already have an account? <Link to='/signup'>Register</Link></p>
         </form>
+        {error && (
+          <div className={classes.error}>
+            There was an error signing in
+            Wrong credentials or server error
+            </div>
+        )}
+        {emptyFields && (
+          <div className={classes.error}>
+            Fill all fields!
+            </div>
+        )}
       </div>
     </div>
   )

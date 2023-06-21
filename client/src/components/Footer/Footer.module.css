@@ -33,7 +33,7 @@ footer {
 
 @media only screen and (max-width: 768px) {
     footer {
-        magin-top: 10rem;
+        margin-top: 10rem;
     }
 
     .wrapper {

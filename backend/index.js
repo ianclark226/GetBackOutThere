@@ -5,7 +5,8 @@ const authController = require('./controllers/authController.js');
 const eventController = require('./controllers/eventController');
 const cors = require('cors');
 const uploadController = require('./controllers/uploadController.js');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const userController = require('./controllers/userCotroller.js');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded({extended: true}));
 app.use("/auth", authController);
 app.use("/event", eventController);
 app.use("/upload", uploadController);
+app.use("/user", userController)
 app.use(bodyParser.json());
 
 

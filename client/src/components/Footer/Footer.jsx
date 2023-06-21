@@ -7,7 +7,7 @@ const Footer = () => {
       <div className={classes.wrapper}>
         <div className={classes.col}>
           <h2>About the App</h2>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae necessitatibus reprehenderit maiores blanditiis delectus commodi provident totam, voluptatibus pariatur esse!</p>
+          <p>This is an app where people who are trying to recover from a post covid world can get back into in person events. Some people have not officially recovered and still rather be inside than with the public. All these event are in person.</p>
         </div>
         <div className={classes.col}>
           <h2>Contacts</h2>

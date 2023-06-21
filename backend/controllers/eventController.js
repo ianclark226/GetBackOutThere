@@ -63,6 +63,17 @@ eventController.get('/find/types', async(req, res) => {
     }
 })
 
+//fetch my events
+eventController.get('/find/my-events', verifyToken, async(req, res) => {
+    try {
+        const events = await Event.find({ currentOwner: req.user.id })
+
+        return res.status(200).json(events)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 // get individual event
 eventController.get('/find/:id', async(req, res) => {
     try {
@@ -89,40 +100,37 @@ eventController.post('/', verifyToken, async(req, res) => {
     }
 })
 
-//update event
-eventController.put('/:id', verifyToken, async(req, res) => {
-    try {
-        const event = await Event.findById(req.params.id);
-        if(event.currentOwner.toString() !== req.user.id.toString()) {
-        throw new Error("You are not allowed to update other peoples events")
-
-        } else {
-            const updateEvent = await Event.findByIdAndUpdate(
-                req.params.id,
-                {$set: req.body},
-                {new: true}
-            )
-
-            return res.status(200).json(updateEvent)
-        }
-    } catch(error) {
-        return res.status(500).json(error.message)
-    }
-})
-//delete event
-eventController.post('/:id', verifyToken, async(req, res) => {
+eventController.put('/:id', verifyToken, async (req, res) => {
     try {
         const event = await Event.findById(req.params.id)
+        if(event.currentOwner.toString() !== req.user.id){
+         throw new Error("You are not allowed to modify Events besides your own")
+ }    
+    const updateEvent = await Event.findByIdAndUpdate(
+        req.params.id,
+        { $set: req.body},
+        { new: true }
+    )
 
-        if(event.currentOwner.toString() !== req.user.id.toString()) {
-            throw new Error("You are not allowed to delete other users events")
-        } else {
-            await event.delete()
+    return res.status(200).json(updateEvent)
+} catch (error) {
+    return res.status(500).json(error)
+}
 
-            return res.status(200).json({msg: 'Successfully Deleted'})
+})
+
+eventController.delete('/:id', verifyToken, async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id)
+        if(event.currentOwner.toString() !== req.user.id) {
+            throw new Error("You are not allow to delete Events besides your own")
         }
-    } catch(error){
-        return res.status(500).json(error.message)
+
+        await event.delete()
+
+        return res.status(200).json({ msg: "Successfully Deleted Event" })
+    } catch (error) {
+        return res.status(500).json(error)
     }
 })
 
