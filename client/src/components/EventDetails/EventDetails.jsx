@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom'
 import person from '../../assets/person.webp'
 import Comment from '../Comment/Comment'
 
-const EventDetails = () => {
+
+const EventDetails = ({ comment }) => {
 
   const {user, token } = useSelector((state) => state.auth)
   const[eventDetail, setEventDetail] = useState(null)
@@ -212,7 +213,7 @@ const EventDetails = () => {
         {/*Comment Input */}
         {user?._id === null && <h3 style={{margin: '0.75rem', fontSize: '24px'}}>Sign in to be able to Comment</h3>}
         {user?._id !== null && <div className={classes.commentInput}>
-          <img src={`http:localhost:5000/images/${user?.author?.profileImg}`} alt="profile img" />
+          
           <input value={commentText} type="text" placeholder='Type Message...' onChange={(e) => setCommentText(e.target.value)} />
           <button onClick={handleComment}>Post</button>
           </div>}
