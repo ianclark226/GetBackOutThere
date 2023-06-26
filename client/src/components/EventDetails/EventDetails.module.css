@@ -159,7 +159,7 @@
 }
 
 .contactOwner {
-    width: 25%;
+    width: 100%;
     text-align: center;
     border: 1px solid transparent;
     outline: none;
@@ -231,10 +231,15 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+} 
+
+ .contactBookmarkControls>* {
+    cursor: pointer;
+   
 }
 
-.contactBookmarkControls>* {
-    cursor: pointer;
+.contactBookmarkControls > span {
+ transform: translate(-75px, 50px); 
 }
 
 .error {
@@ -336,7 +341,7 @@ a {
 .comments {
     max-height: 300px;
     overflow: auto;
-    margin-top: 1.25rem;
+    margin-top: .25rem;
     width: 100%;
     padding: 1rem;
     display: flex;

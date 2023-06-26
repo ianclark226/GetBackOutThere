@@ -43,28 +43,28 @@ const PopularEvents = () => {
           <h2>Best type of Events for you</h2>
         </div>
         <div className={classes.events}>
-          <Link className={classes.event} to={`/events?type=booze=18priceRange=2`}>
-            <img src={img1} alt=""/>
+          <Link className={classes.event} to={`/events?type=booze&crowd=small&priceRange=2`}>
+            <img src={img1} alt="booze"/>
             <div className={classes.quantity}>{boozeEvents} Events</div>
             <h5>Booze Events</h5>
           </Link>
-          <Link className={classes.event} to={`/events?type=crafts=18priceRange=2`}>
-            <img src={img2} alt=""/>
+          <Link className={classes.event} to={`/events?type=crafts&crowd=small&priceRange=2`}>
+            <img src={img2} alt="craft"/>
             <div className={classes.quantity}>{craftEvents} Events</div>
             <h5>Craft Events</h5>
           </Link>
-          <Link className={classes.event} to={`/events?type=dating=18priceRange=2`}>
-            <img src={img3} alt=""/>
+          <Link className={classes.event} to={`/events?type=dating&crowd=medium&priceRange=2`}>
+            <img src={img3} alt="dating"/>
             <div className={classes.quantity}>{datingEvents} Events</div>
             <h5>Dating Events</h5>
           </Link>
-          <Link className={classes.event} to={`/events?type=gaming=18priceRange=2`}>
-            <img src={img4} alt=""/>
+          <Link className={classes.event} to={`/events?type=gaming&crowd=medium&priceRange=2`}>
+            <img src={img4} alt="gaming"/>
             <div className={classes.quantity}>{gamingEvents} Events</div>
             <h5>Gaming Events</h5>
           </Link>
-          <Link className={classes.event} to={`/events?type=sports=18priceRange=2`}>
-            <img src={img5} alt=""/>
+          <Link className={classes.event} to={`/events?type=sports&crowd=large&priceRange=2`}>
+            <img src={img5} alt="sporting"/>
             <div className={classes.quantity}>{sportEvents} Events</div>
             <h5>Sporting Events</h5>
           </Link>

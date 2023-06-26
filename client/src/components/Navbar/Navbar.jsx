@@ -103,7 +103,7 @@ const Navbar = () => {
     <div className={`${classes.container} ${isScrolled && classes.scrolled}`}>
       <div className={classes.wrapper}>
         <Link to="/" onClick={scrollToTop} className={classes.left}>
-          Events <BsFillDoorOpenFill />
+          GetBackOutThere <BsFillDoorOpenFill />
         </Link>
         <ul className={classes.center}>
           <li className={classes.listItem}>Home</li>

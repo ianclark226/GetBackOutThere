@@ -15,6 +15,7 @@ const MyProfile = () => {
     const [error, setError] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [bookmarkedEvents, setBookmarkedEvents] = useState([])
 
     useEffect(() => {
         const fetchListedEvents = async () => {
@@ -30,6 +31,21 @@ const MyProfile = () => {
         }
         fetchListedEvents()
     },[token])
+
+    useEffect(() => {
+        const fetchBookmarkedEvents = async () => {
+            try {
+                const options = {
+                    Authorization: `Bearer ${token}`
+                }
+                const data = await request(`/event/find/bookmarked-events`, 'GET', options)
+                setBookmarkedEvents(data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchBookmarkedEvents()
+    }, [token])
 
     const handleDeleteProfile = async() => {
         try {
@@ -62,7 +78,7 @@ const MyProfile = () => {
                     )}
                     <button onClick={() => setDeleteModal(prev => !prev)} className={classes.deleteBtn}>Delete Profile</button>
                 </div> 
-                <img className={classes.userProfileImg} src={user?.profileImg ? `http://localhost:5000/images/${user?.profileImg}` : person} alt=""/>
+                <img className={classes.userProfileImg} src={user?.profileImg ? `http://localhost:5000/images/${user?.profileImg}` : person} alt="profile img"/>
                     <div className={classes.userData}>
                         <h3>{user?.username}</h3>
                         <h4>{user?.email}</h4>
@@ -71,6 +87,9 @@ const MyProfile = () => {
             <div className={classes.buttons}>
                 <button className={`${classes.button} ${activeBtn === 0 && classes.active}`} onClick={() => setActiveBtn(prev => 0)}>
                     Listed Events
+                </button>
+                <button className={`${classes.button} ${activeBtn === 1 && classes.active}`} onClick={() => setActiveBtn(prev => 1)}>
+                    Bookmarked Events
                 </button>
             </div>
             <div className={classes.catelog}>
@@ -81,12 +100,12 @@ const MyProfile = () => {
                         {listedEvents?.length > 0 ? listedEvents?.map((listedEvent) => (
                             <div key={listedEvent._id} className={classes.event}>
                                 <Link to={`/eventDetail/${listedEvent._id}`} className={classes.imgContainer}>
-                                    <img src={`http://localhost:5000/images/${listedEvent?.img}`} alt="" />
+                                    <img src={`http://localhost:5000/images/${listedEvent?.img}`} alt="listed event" />
                                 </Link>
                                 <div className={classes.detials}>
                                     <div className={classes.priceAndOwner}>
                                         <span className={classes.price}>$ {listedEvent.price}</span>
-                                        <img src={user?.profileImg ? `http://localhost:5000/images/${user?.profileImg}` : person} className={classes.owner} alt=''/>
+                                        <img src={user?.profileImg ? `http://localhost:5000/images/${user?.profileImg}` : person} className={classes.owner} alt='profile img'/>
                                     </div>
                                     
                                 </div>
@@ -95,6 +114,31 @@ const MyProfile = () => {
                                 </div>
                             </div>
                         )) : <h2 className={classes.noListed}>You have no listed Events</h2>}
+                    </div>
+                    </>
+                )}
+                {activeBtn === 1 && (
+                    <>
+                    {bookmarkedEvents?.length > 0 && <h2 className={classes.title}>Bookmarked Events</h2>}
+                    <div className={classes.events}>
+                        {bookmarkedEvents?.length > 0 ? bookmarkedEvents?.map((bookmarkedEvent) => (
+                            <div key={bookmarkedEvent._id} className={classes.event}>
+                                <Link to={`/eventDetail/${bookmarkedEvent._id}`} className={classes.imgContainer}>
+                                    <img src={`http://localhost:5000/images/${bookmarkedEvent?.img}`} alt="bookmark img" />
+                                </Link>
+                                <div className={classes.details}>
+                                    <div className={classes.priceAndOwner}>
+                                        <span className={classes.price}>$ {bookmarkedEvent.price}</span>
+                                        <img src={person} className={classes.owner} alt="owner"/>
+                                    </div>
+                                    
+                                </div>
+                                <div className={classes.desc}>
+                                    {bookmarkedEvent?.desc}
+                                </div>
+                                </div>
+                                
+                        )) : <h2 className={classes.noListed}>You have no bookmarked Events</h2>}
                     </div>
                     </>
                 )}

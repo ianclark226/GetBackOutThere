@@ -17,12 +17,12 @@ commentController.get('/:listingId', async(req, res) => {
 })
 
 // create a comment
-commentController.post('/', verifyTOken, async(req, res) => {
+commentController.post('/', verifyToken, async(req, res) => {
     try {
         const createdComment = await (await Comment.create({ ...req.body, author: req.user.id }))
             .populate('author', '-password')
 
-        return res.status(201).josn(createdComment)
+        return res.status(201).json(createdComment)
     } catch(error) {
         return res.status(500).json(error.message)
     }

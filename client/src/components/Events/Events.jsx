@@ -7,6 +7,7 @@ import { arrPriceRanges } from '../../util/idxToPrice'
 import { Link } from 'react-router-dom'
 import person from '../../assets/person.webp'
 import { crowdToIdx } from '../../util/idxToCrowd'
+import EventCard from '../EventCard/EventCard'
 
 
 const Events = () => {
@@ -71,23 +72,23 @@ const Events = () => {
     const filteredEvents = allEvents.filter((eve) => {
 
       const priceRange = arrPriceRanges[options.priceRange]
-      const minPrice = String(priceRange.split('-')[0])
-      const maxPrice = String(priceRange.split('-')[1])
+      const minPrice = Number(priceRange.split('-')[0])
+      const maxPrice = Number(priceRange.split('-')[1])
       // const crowd = crowdToIdx(eve.crowd)
-      console.log(minPrice)
+     
       
       
 
       if (
-        eve.type === options.type
-        // && crowd === Number(options.crowd)
+        eve.type === options.type  
+        // crowd === Number(options.crowd)
         && eve.price >= minPrice && eve.price <= maxPrice
       ) {
-        
+        return eve
       }
         
       
-      return eve
+      
     })
 
     const queryStr = `type=${options.type}&crowd=${options.crowd}&priceRange=${options.priceRange}`
@@ -122,9 +123,9 @@ const Events = () => {
           </select>
           <select value={state?.crowd} name="crowd" onChange={handleState}>
             <option disabled>Select Crowd Size</option>
-            <option value="0">Small</option>
-            <option value="1">Medium</option>
-            <option value="2">Large</option>
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
           </select>
           <button className={classes.searchBtn}>
           <AiOutlineSearch onClick={handleSearch} className={classes.searchIcon} />
@@ -137,23 +138,8 @@ const Events = () => {
             <h2>Event you may like</h2>
           </div>
           <div className={classes.events}>
-            {filteredEvents.map((event) => (
-              <div key={event._id} classNmae={classes.event}>
-                <Link className={classes.imgContainer} to={`/eventDetail/${event._id}`}>
-                  <img style={{ height:'350px', width: '350px', objectFit: 'cover', transition:'100ms all'}}src={`http://localhost:5000/images/${event?.img}`} alt="" />
-                </Link>
-                <div className={classes.details}>
-                  <div className={classes.priceAndOwner}>
-                    <span className={classes.price}>$ {event.price}</span>
-                    <img src={person} className={classes.owner} alt=""/>
-                  </div>
-                  <div className={classes.desc}>
-                    {event.desc}
-                    {event.crowd}
-                  </div>
-                  
-                </div>
-                </div>
+            {filteredEvents.map((eve) => (
+              <EventCard key={eve._id} event={eve} />
             ))}
           </div>
           </>

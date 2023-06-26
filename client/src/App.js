@@ -3,7 +3,6 @@ import './App.css';
 import Navbar from './components/navbar/Navbar'
 import Hero from './components/hero/Hero'
 import PopularEvents from './components/popularevents/PopularEvents'
-import FeaturedEvents from './components/featuredevents/FeaturedEvents'
 import Footer from './components/footer/Footer'
 import Events from './components/events/Events'
 import Signup from './components/signup/Signup'
@@ -28,7 +27,7 @@ function App() {
           <Navbar />
           <Hero />
           <PopularEvents />
-          <FeaturedEvents />
+         
           <Footer />
           </>
         } />

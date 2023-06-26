@@ -1,7 +1,7 @@
 const Event = require('../models/Event');
 const eventController = require('express').Router();
 const verifyToken = require('../middleware/verifyToken');
-const { events } = require('../models/User');
+const User = require('../models/User.js')
 
 // get all
 eventController.get('/getAll', async(req,res) => {
@@ -11,6 +11,17 @@ eventController.get('/getAll', async(req,res) => {
         return res.status(200).json(events)
     } catch (error) {
         return res.status(500).json(error.message)
+    }
+})
+
+//fetch my events
+eventController.get('/find/my-events', verifyToken, async(req, res) => {
+    try {
+        const events = await Event.find({ currentOwner: req.user.id })
+
+        return res.status(200).json(events)
+    } catch (error) {
+        console.log(error)
     }
 })
 
@@ -63,16 +74,17 @@ eventController.get('/find/types', async(req, res) => {
     }
 })
 
-//fetch my events
-eventController.get('/find/my-events', verifyToken, async(req, res) => {
+//fetch bookmarked events
+eventController.get('/find/bookmarked-events', verifyToken, async (req, res) => {
     try {
-        const events = await Event.find({ currentOwner: req.user.id })
+        const events = await Event.find({ bookmarkedUsers: { $in: [req.user.id] } })
 
         return res.status(200).json(events)
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 })
+
 
 // get individual event
 eventController.get('/find/:id', async(req, res) => {
@@ -134,27 +146,21 @@ eventController.delete('/:id', verifyToken, async (req, res) => {
     }
 })
 
-//fetch bookmarked events
-eventController.get('/find/bookmarked-events', verifyToken, async(req, res) => {
-    try {
-        const events = await Event.find({ bookmarkedUsers: { $in: [req.user.id] } })
-
-        return res.status(200).json(events)
-    } catch(error) {
-        console.error(error)
-    }
-})
-
 // bookmark/unbookmark events
-eventController.put('/bookmark/:id', verifyToken, async(req, res) => {
+eventController.put('/bookmark/:id', verifyToken, async (req, res) => {
     try {
         let event = await Event.findById(req.params.id)
-        if(event.currentOwner.toString() === req.user.id) {
-            throw new Error("You are not allowed to bookmark your stuff")
+        if (event.currentOwner.toString() === req.user.id) {
+            throw new Error("You are not allowed to bookmark your project")
         }
 
-        if(event.bookmarkedUsers.includes(req.user.id)) {
+
+        if (event.bookmarkedUsers.includes(req.user.id)) {
             event.bookmarkedUsers = event.bookmarkedUsers.filter(id => id !== req.user.id)
+            await event.save()
+        } else {
+            event.bookmarkedUsers.push(req.user.id)
+
             await event.save()
         }
 

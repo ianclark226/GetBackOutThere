@@ -1,0 +1,80 @@
+.event {
+    height: max-content;
+    width: 300px;
+}
+
+.event > .imgContainer {
+    display: inline-block;
+    height: 350px;
+    width: 110%;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.event > .imgContainer > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: 150ms all;
+}
+
+.event > .imgContainer img:hover {
+    scale: 1.035;
+}
+
+.owner {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    transform: translateX(90px);
+}
+
+.event > .details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0. 0.5rem;
+}
+
+.event > .details > .priceAndOwner {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priceAndOwner > .price {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.moreDetails {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.moreDetails > span {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-right: 1px solid #0707b5;
+    color: #2c2cdc;
+}
+
+.moreDetails > span:last-child {
+    border: none;
+}
+
+.desc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    max-width: 250px;
+    color: #222;
+
+}
