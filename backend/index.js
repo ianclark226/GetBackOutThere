@@ -23,7 +23,7 @@ app.use('/images', express.static('public/images'));
 app.use(express.json());
 app.use(cors(
     {
-    origin: ["https://get-back-out-there-725c.vercel.app/"],
+    origin: ["https://get-back-out-there-725c.vercel.app"],
     methods: ['POST', 'GET', 'PUT', 'DELETE'],
     credentials: true
     }
