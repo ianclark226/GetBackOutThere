@@ -21,13 +21,7 @@ app.use('/images', express.static('public/images'));
 
 //routes & middleware
 app.use(express.json());
-app.use(cors(
-    {
-    origin: ["https://get-back-out-there-725c.vercel.app"],
-    methods: ['POST', 'GET', 'PUT', 'DELETE'],
-    credentials: true
-    }
-));
+app.use(cors);
 app.use(express.urlencoded({extended: true}));
 app.use("/auth", authController);
 app.use("/event", eventController);
@@ -36,13 +30,7 @@ app.use("/user", userController)
 app.use("/comment", commentController)
 app.use(bodyParser.json());
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/build"));
-  }
-  
-//   app.get("*", function (req, res) {
-//     res.sendFile(path.join(__dirname, "./client/build/index.html"));
-//   });
+app.use('/', express.static('dist'))
 
 
 
