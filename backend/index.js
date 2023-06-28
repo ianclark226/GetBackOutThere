@@ -8,7 +8,7 @@ const uploadController = require('./controllers/uploadController.js');
 const bodyParser = require('body-parser');
 const userController = require('./controllers/userCotroller.js');
 const commentController = require('./controllers/commentController.js');
-const path = require('path')
+
 
 const app = express();
 
@@ -21,7 +21,13 @@ app.use('/images', express.static('public/images'));
 
 //routes & middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+    {
+    origin: ["https://get-back-out-there.vercel.app"],
+    methods: ['POST', 'GET', 'PUT', 'DELETE'],
+    credentials: true
+    }
+));
 app.use(express.urlencoded({extended: true}));
 app.use("/auth", authController);
 app.use("/event", eventController);
