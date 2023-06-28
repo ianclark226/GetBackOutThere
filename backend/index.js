@@ -8,6 +8,7 @@ const uploadController = require('./controllers/uploadController.js');
 const bodyParser = require('body-parser');
 const userController = require('./controllers/userCotroller.js');
 const commentController = require('./controllers/commentController.js');
+const path = require('path')
 
 const app = express();
 
