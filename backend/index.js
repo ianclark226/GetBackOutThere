@@ -30,7 +30,7 @@ app.use("/user", userController)
 app.use("/comment", commentController)
 app.use(bodyParser.json());
 
-app.use('/', express.static('dist'))
+// app.use('/', express.static('dist'))
 
 
 
