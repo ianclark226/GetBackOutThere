@@ -5,6 +5,7 @@ import { request } from '../../util/fetchAPI'
 import person from '../../assets/person.webp'
 import classes from './myProfile.module.css'
 import { logout } from '../../redux/authSlice'
+import { BASE_URL } from '../../util/fetchAPI'
 
 const MyProfile = () => {
 
@@ -78,7 +79,7 @@ const MyProfile = () => {
                     )}
                     <button onClick={() => setDeleteModal(prev => !prev)} className={classes.deleteBtn}>Delete Profile</button>
                 </div> 
-                <img className={classes.userProfileImg} src={user?.profileImg ? `http://localhost:5000/images/${user?.profileImg}` : person} alt="profile img"/>
+                <img className={classes.userProfileImg} src={user?.profileImg ? `${BASE_URL}/images/${user?.profileImg}` : person} alt="profile img"/>
                     <div className={classes.userData}>
                         <h3>{user?.username}</h3>
                         <h4>{user?.email}</h4>
@@ -100,12 +101,12 @@ const MyProfile = () => {
                         {listedEvents?.length > 0 ? listedEvents?.map((listedEvent) => (
                             <div key={listedEvent._id} className={classes.event}>
                                 <Link to={`/eventDetail/${listedEvent._id}`} className={classes.imgContainer}>
-                                    <img src={`http://localhost:5000/images/${listedEvent?.img}`} alt="listed event" />
+                                    <img src={`${BASE_URL}/images/${listedEvent?.img}`} alt="listed event" />
                                 </Link>
                                 <div className={classes.detials}>
                                     <div className={classes.priceAndOwner}>
                                         <span className={classes.price}>$ {listedEvent.price}</span>
-                                        <img src={user?.profileImg ? `http://localhost:5000/images/${user?.profileImg}` : person} className={classes.owner} alt='profile img'/>
+                                        <img src={user?.profileImg ? `${BASE_URL}/images/${user?.profileImg}` : person} className={classes.owner} alt='profile img'/>
                                     </div>
                                     
                                 </div>
@@ -124,7 +125,8 @@ const MyProfile = () => {
                         {bookmarkedEvents?.length > 0 ? bookmarkedEvents?.map((bookmarkedEvent) => (
                             <div key={bookmarkedEvent._id} className={classes.event}>
                                 <Link to={`/eventDetail/${bookmarkedEvent._id}`} className={classes.imgContainer}>
-                                    <img src={`http://localhost:5000/images/${bookmarkedEvent?.img}`} alt="bookmark img" />
+                                    {/* <img src={`https://get-back-out-there.onrender.com/images/${bookmarkedEvent?.img}` || `https://get-back-out-there.onrender.com/images/${bookmarkedEvent?.img}`} alt="bookmark img" /> */}
+                                    <img src={user?.profileImg ? `${BASE_URL}/images/${user?.profileImg}` : person} className={classes.owner} alt='profile img'/>
                                 </Link>
                                 <div className={classes.details}>
                                     <div className={classes.priceAndOwner}>

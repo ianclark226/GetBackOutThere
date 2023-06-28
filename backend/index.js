@@ -11,6 +11,8 @@ const commentController = require('./controllers/commentController.js');
 
 const app = express();
 
+require('dotenv').config();
+
 // mongodb connect
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGO_URL, () => console.log('MongoDB has been started sucessfully'));
@@ -26,6 +28,14 @@ app.use("/upload", uploadController);
 app.use("/user", userController)
 app.use("/comment", commentController)
 app.use(bodyParser.json());
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+  }
+  
+  app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  });
 
 
 

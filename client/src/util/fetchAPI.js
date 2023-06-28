@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:5000"
+export const BASE_URL = "http://localhost:5000"
+// export const BASE_URL = "https://get-back-out-there.onrender.com"
 
 export const request = async (url, method, headers = {}, body = {}, isNotStringified = false) => {
     let res

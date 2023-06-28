@@ -9,6 +9,7 @@ import emailjs from '@emailjs/browser'
 import { Link } from 'react-router-dom'
 import person from '../../assets/person.webp'
 import Comment from '../Comment/Comment'
+import { BASE_URL } from '../../util/fetchAPI'
 
 
 const EventDetails = ({ comment }) => {
@@ -127,7 +128,7 @@ const EventDetails = ({ comment }) => {
       <h3 style={{ textAlign: 'center', marginBottom: '2.5rem', fontSize: '32px', marginTop: '-2.5rem' }}>Event Details</h3>
       <div className={classes.wrapper}>
         <div className={classes.left}>
-          <img src={`http://localhost:5000/images/${eventDetail?.img}`} alt="event img"/>
+          <img src={`${BASE_URL}/images/${eventDetail?.img}`} alt="event img"/>
         </div>
         <div className={classes.right}>
           <h3 className={classes.title}>
@@ -149,7 +150,8 @@ const EventDetails = ({ comment }) => {
             <span style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
               Owner: {eventDetail?.currentOwner?.profileImg
               ? (
-              <img src={`http://localhost:5000/images/${eventDetail?.currentOwner?.profileImg}`} alt="" className={classes.owner}/>
+              //<img src={`https://get-back-out-there.onrender.com/images/${eventDetail?.currentOwner?.profileImg}` || `https://localhost:5000/images/${eventDetail?.currentOwner?.profileImg}`} alt="" className={classes.owner} />
+              <img src={`${BASE_URL}/images/${eventDetail?.currentOwner?.profileImg}`} alt="" className={classes.owner}/>
               ) : (
                 <img src={person} className={classes.owner} alt="person"/>
               )
