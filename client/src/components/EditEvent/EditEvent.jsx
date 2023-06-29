@@ -89,7 +89,7 @@ const EditEvent = () => {
                 <select required name='type' onChange={handleState}>
                     <option disabled>Select Type</option>
                     <option value="booze">Booze</option>
-                    <option value="craft">Crafts</option>
+                    <option value="crafts">Crafts</option>
                     <option value="dating">Dating</option>
                     <option value="gaming">Gaming</option>
                     <option value="sports">Sports</option>

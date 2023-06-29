@@ -14,17 +14,6 @@ eventController.get('/getAll', async(req,res) => {
     }
 })
 
-//fetch my events
-eventController.get('/find/my-events', verifyToken, async(req, res) => {
-    try {
-        const events = await Event.find({ currentOwner: req.user.id })
-
-        return res.status(200).json(events)
-    } catch (error) {
-        console.log(error)
-    }
-})
-
 //get featured
 eventController.get('/find/featured', async(req, res) => {
     try {
@@ -42,11 +31,13 @@ eventController.get('/find', async(req, res) => {
     let events = []
     try {
         if(type) {
-         events = await Event.find(type).populate('currentOwner', '-password')
+         events = await Event.find(type).populate('owner', '-password')
             return res.status(200).json(events)
         } else {
             events = await Event.find({})
         }
+
+        return res.status(200).json(events)
     } catch (error) {
         return res.status(500).json(error.message)
     }
@@ -54,7 +45,6 @@ eventController.get('/find', async(req, res) => {
 
 // get counts of types 
 eventController.get('/find/types', async(req, res) => {
-    const type = req.query
     try {
       const boozeType = await Event.countDocuments({type: 'booze'})
       const craftsType = await Event.countDocuments({type: 'crafts'})
@@ -73,6 +63,23 @@ eventController.get('/find/types', async(req, res) => {
         return res.status(500).json(error.message)
     }
 })
+
+//fetch my events
+eventController.get('/find/my-events', verifyToken, async(req, res) => {
+    try {
+        const events = await Event.find({ currentOwner: req.user.id })
+
+        return res.status(200).json(events)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+
+
+
+
 
 //fetch bookmarked events
 eventController.get('/find/bookmarked-events', verifyToken, async (req, res) => {
@@ -112,6 +119,7 @@ eventController.post('/', verifyToken, async(req, res) => {
     }
 })
 
+// update event
 eventController.put('/:id', verifyToken, async (req, res) => {
     try {
         const event = await Event.findById(req.params.id)
@@ -129,21 +137,6 @@ eventController.put('/:id', verifyToken, async (req, res) => {
     return res.status(500).json(error)
 }
 
-})
-
-eventController.delete('/:id', verifyToken, async (req, res) => {
-    try {
-        const event = await Event.findById(req.params.id)
-        if(event.currentOwner.toString() !== req.user.id) {
-            throw new Error("You are not allow to delete Events besides your own")
-        }
-
-        await event.delete()
-
-        return res.status(200).json({ msg: "Successfully Deleted Event" })
-    } catch (error) {
-        return res.status(500).json(error)
-    }
 })
 
 // bookmark/unbookmark events
@@ -169,5 +162,23 @@ eventController.put('/bookmark/:id', verifyToken, async (req, res) => {
         return res.status(500).json(error)
     }
 })
+
+//delete event
+eventController.delete('/:id', verifyToken, async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id)
+        if(event.currentOwner.toString() !== req.user.id) {
+            throw new Error("You are not allow to delete Events besides your own")
+        }
+
+        await event.delete()
+
+        return res.status(200).json({ msg: "Successfully Deleted Event" })
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+})
+
+
 
 module.exports = eventController;
