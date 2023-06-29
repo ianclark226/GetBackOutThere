@@ -6,7 +6,7 @@ const verifyToken = require('../middleware/verifyToken')
 userController.get('/find/:id', async (req, res) => {
     try {
         const user = await User.findById(req.params.id).select('-password')
-        if(!user) throw new Error("No such User")
+        if(!user) throw new Error("This user was not found")
         return res.status(200).json(user)
     } catch (error) {
         return res.status(500).json(error.message)
