@@ -17,6 +17,13 @@ const Signin = () => {
   const handleLogin = async(e) => {
     e.preventDefault();
 
+    if(email === '' || password === '') {
+      setEmptyFields(true)
+      setTimeout(() => {
+        setEmptyFields(false)
+      }, 2500)
+    }
+
     try {
       const options = {
         'Content-Type': 'application/json'

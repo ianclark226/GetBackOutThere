@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { AiOutlineFileImage } from 'react-icons/ai'
 import { request } from '../../util/fetchAPI'
 import { register } from '../../redux/authSlice'
+import { BASE_URL } from '../../util/fetchAPI'
 
 
  
@@ -12,10 +13,10 @@ const Signout = () => {
 
   const [state, setState] = useState({})
   const [photo, setPhoto] = useState("")
-  const dispatch = useDispatch()
   const { token } = useSelector((state) => state.auth)
   const [error, setError] = useState(false)
   const [emptyFields, setEmptyFields] = useState(false)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleState = (e) => {
@@ -26,6 +27,14 @@ const Signout = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+
+    if(Object.values(state).some((v) => v ==='')) {
+      setEmptyFields(true)
+      setTimeout(() => {
+        setEmptyFields(false)
+      }, 2500)
+    }
+
     try {
       let filename= null
       if(photo){
@@ -34,7 +43,14 @@ const Signout = () => {
         formData.append("filename", filename)
         formData.append('image', photo)
 
-        await request("/upload/image", 'POST', {}, formData, true)
+        await fetch(`${BASE_URL}/upload/image`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+
+            method: 'POST',
+            body: formData
+        })
       } else {
         setEmptyFields(true)
         setTimeout(() => {
@@ -48,7 +64,7 @@ const Signout = () => {
       }
 
       const data = await request('/auth/register', 'POST', headers, {...state, profileImg: filename})
-      console.log(data)
+      
       dispatch(register(data))
       navigate('/')
 
