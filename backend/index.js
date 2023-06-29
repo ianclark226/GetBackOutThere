@@ -12,6 +12,10 @@ const commentController = require('./controllers/commentController.js');
 
 const app = express();
 
+app.get('/', (req, res) => {
+    res.send('hello world')
+  })
+
 // mongodb connect
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGO_URL, () => console.log('MongoDB has been started sucessfully'));
