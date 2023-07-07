@@ -43,9 +43,10 @@ const Signout = () => {
         formData.append("filename", filename)
         formData.append('image', photo)
 
-        await fetch(`${BASE_URL}/upload/image`, {
+        await request(`${BASE_URL}/upload/image`, {
             headers: {
-              'Authorization': `Bearer ${token}`
+              'Authorization': `Bearer ${token}`,
+              'Access-Control-Allow-Origin':'*'
             },
 
             method: 'POST',
@@ -60,7 +61,8 @@ const Signout = () => {
       }
 
       const headers = {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin':'*'
       }
 
       const data = await request('/auth/register', 'POST', headers, {...state, profileImg: filename})
